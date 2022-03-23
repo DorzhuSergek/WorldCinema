@@ -30,30 +30,8 @@ public class firstFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_first, container, false);
-
-//        AsyncTask.execute(new Runnable() {
-//            @Override
-//            public void run() {
-//                try {
-//                    data = GetDownloadData();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//        });
     }
 
-//    private void Parsing(String jsonData) {
-//        try {
-//            Object object = new JSONParser().parse(jsonData);
-//            org.json.simple.JSONObject jsonObject = (JSONObject) object;
-//            org.json.simple.JSONArray jsonArray = (org.json.simple.JSONArray) jsonObject.get("poster");
-//            System.out.println(jsonObject);
-//        } catch (Exception e) {
-//
-//        }
-//    }
 
     private String GetDownloadData() {
         StringBuilder result = new StringBuilder();

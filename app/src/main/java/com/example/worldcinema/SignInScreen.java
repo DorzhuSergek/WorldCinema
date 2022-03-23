@@ -2,7 +2,10 @@ package com.example.worldcinema;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.nfc.Tag;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,11 +28,14 @@ import retrofit2.Response;
 public class SignInScreen extends AppCompatActivity {
     Button logIn;
 
-    private static final String TAG = "SignInScreen";
+    private static final String MY_SETTINGS = "my_settings";
+
     EditText editEmail, editPassword;
 
     ApiService service = ApiHandler.getInstance().getService();
-
+    SharedPreferences mSettings;
+    Boolean is_logged;
+    String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +44,18 @@ public class SignInScreen extends AppCompatActivity {
         logIn = findViewById(R.id.LogIn);
         editEmail = findViewById(R.id.editTextTextEmailAddress);
         editPassword = findViewById(R.id.editTextTextPassword);
+        mSettings = getSharedPreferences("my_storage", Context.MODE_PRIVATE);
+
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 doLogin();
             }
         });
-
+//        if(mSettings.getBoolean("is_logged",false)){
+//            startActivity(new Intent(SignInScreen.this,MainActivity.class));
+//            finish();
+//        }
     }
 
     private void doLogin() {
@@ -54,8 +65,11 @@ public class SignInScreen extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if (response.isSuccessful()) {
-                        Toast.makeText(getApplicationContext(), "Авторизация прошла успешно! Держи свой токен: " + response.body().getToken(), Toast.LENGTH_SHORT).show();
-
+                        token = response.body().getToken();
+//                        mSettings = getSharedPreferences("my_storage", Context.MODE_PRIVATE);
+//                        SharedPreferences.Editor editor = mSettings.edit();
+//                        editor.putBoolean("is_logged", true).apply();
+                        System.out.println(token);
                         Intent intent = new Intent(SignInScreen.this, MainActivity.class);
                         startActivity(intent);
                     } else if (response.code() == 400) {
