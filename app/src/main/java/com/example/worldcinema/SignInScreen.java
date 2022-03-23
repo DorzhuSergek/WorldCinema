@@ -35,9 +35,9 @@ public class SignInScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in_screen);
-        logIn=findViewById(R.id.LogIn);
-        editEmail=findViewById(R.id.editTextTextEmailAddress);
-        editPassword=findViewById(R.id.editTextTextPassword);
+        logIn = findViewById(R.id.LogIn);
+        editEmail = findViewById(R.id.editTextTextEmailAddress);
+        editPassword = findViewById(R.id.editTextTextPassword);
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -46,18 +46,19 @@ public class SignInScreen extends AppCompatActivity {
         });
 
     }
-    private void doLogin(){
+
+    private void doLogin() {
 
         AsyncTask.execute(() -> {
             service.doLogin(getLoginData()).enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
-                    if (response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         Toast.makeText(getApplicationContext(), "Авторизация прошла успешно! Держи свой токен: " + response.body().getToken(), Toast.LENGTH_SHORT).show();
 
-                        Intent intent = new Intent(SignInScreen.this,MainActivity.class);
+                        Intent intent = new Intent(SignInScreen.this, MainActivity.class);
                         startActivity(intent);
-                    } else if (response.code() == 400){
+                    } else if (response.code() == 400) {
 
                         String serverErrorMessage = ErrorUtils.parseError(response).message();
                         Toast.makeText(getApplicationContext(), serverErrorMessage, Toast.LENGTH_SHORT).show();
@@ -69,12 +70,13 @@ public class SignInScreen extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<LoginResponse> call, Throwable t) {
-                                      Toast.makeText(getApplicationContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                     System.out.println(t.getLocalizedMessage());
                 }
             });
         });
     }
+
     private LoginBody getLoginData() {
         return new LoginBody(editEmail.getText().toString(), editPassword.getText().toString());
     }

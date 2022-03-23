@@ -8,8 +8,6 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 public interface ApiService {
-
-
     @POST("login")
     Call<LoginResponse> doLogin(@Body LoginBody registerBody);
 }
