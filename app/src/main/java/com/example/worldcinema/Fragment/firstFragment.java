@@ -12,8 +12,6 @@ import android.view.ViewGroup;
 
 import com.example.worldcinema.R;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -46,16 +44,16 @@ public class firstFragment extends Fragment {
 //        });
     }
 
-    private void Parsing(String jsonData) {
-        try {
-            Object object = new JSONParser().parse(jsonData);
-            org.json.simple.JSONObject jsonObject = (JSONObject) object;
-            org.json.simple.JSONArray jsonArray = (org.json.simple.JSONArray) jsonObject.get("poster");
-            System.out.println(jsonObject);
-        } catch (Exception e) {
-
-        }
-    }
+//    private void Parsing(String jsonData) {
+//        try {
+//            Object object = new JSONParser().parse(jsonData);
+//            org.json.simple.JSONObject jsonObject = (JSONObject) object;
+//            org.json.simple.JSONArray jsonArray = (org.json.simple.JSONArray) jsonObject.get("poster");
+//            System.out.println(jsonObject);
+//        } catch (Exception e) {
+//
+//        }
+//    }
 
     private String GetDownloadData() {
         StringBuilder result = new StringBuilder();
