@@ -34,7 +34,6 @@ public class SignInScreen extends AppCompatActivity {
 
     ApiService service = ApiHandler.getInstance().getService();
     SharedPreferences mSettings;
-    Boolean is_logged;
     String token;
 
     @Override
@@ -69,7 +68,6 @@ public class SignInScreen extends AppCompatActivity {
 //                        mSettings = getSharedPreferences("my_storage", Context.MODE_PRIVATE);
 //                        SharedPreferences.Editor editor = mSettings.edit();
 //                        editor.putBoolean("is_logged", true).apply();
-                        System.out.println(token);
                         Intent intent = new Intent(SignInScreen.this, MainActivity.class);
                         startActivity(intent);
                     } else if (response.code() == 400) {
