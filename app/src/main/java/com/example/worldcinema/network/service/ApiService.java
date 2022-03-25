@@ -4,6 +4,7 @@ import com.example.worldcinema.network.models.LoginBody;
 import com.example.worldcinema.network.models.LoginResponse;
 import com.example.worldcinema.network.models.MovieCoverResponse;
 import com.example.worldcinema.network.models.MovieResponse;
+import com.example.worldcinema.network.models.RegisterAccount;
 
 import java.util.List;
 
@@ -21,5 +22,9 @@ public interface ApiService {
 
     @GET("movies?filter=inTrend")
     Call<List<MovieResponse>> fetchMovie();
+
+
+    @POST("/auth/register")
+    Call<RegisterAccount> registrationAccount(@Body RegisterAccount registerAccount);
 }
 

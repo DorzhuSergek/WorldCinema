@@ -37,6 +37,7 @@ public class SignInScreen extends AppCompatActivity {
     String token;
     SharedPreferences sharedPreferences;
     SharedPreferences edit;
+    Button reg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +46,13 @@ public class SignInScreen extends AppCompatActivity {
         logIn = findViewById(R.id.LogIn);
         editEmail = findViewById(R.id.editTextTextEmailAddress);
         editPassword = findViewById(R.id.editTextTextPassword);
-
-        sharedPreferences=getSharedPreferences("token",Context.MODE_PRIVATE);
-        edit =getSharedPreferences("token",Context.MODE_PRIVATE);
-        token = sharedPreferences.getString("token","");
+        reg = findViewById(R.id.SignIn);
+        reg.setOnClickListener(view -> {
+            startActivity(new Intent(SignInScreen.this,SignUpScreen.class));
+        });
+        sharedPreferences = getSharedPreferences("token", Context.MODE_PRIVATE);
+        edit = getSharedPreferences("token", Context.MODE_PRIVATE);
+        token = sharedPreferences.getString("token", "");
 
         logIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,8 +61,8 @@ public class SignInScreen extends AppCompatActivity {
             }
         });
 
-        if(token !=""){
-            startActivity(new Intent(SignInScreen.this,MainActivity.class));
+        if (token != "") {
+            startActivity(new Intent(SignInScreen.this, MainActivity.class));
             finish();
         }
 //        if(mSettings.getBoolean("is_logged",false)){
@@ -76,7 +80,7 @@ public class SignInScreen extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         Intent intent = new Intent(SignInScreen.this, MainActivity.class);
                         startActivity(intent);
-                        sharedPreferences.edit().putString("token",response.body().getToken()).apply();
+                        sharedPreferences.edit().putString("token", response.body().getToken()).apply();
 
                     } else if (response.code() == 400) {
 
