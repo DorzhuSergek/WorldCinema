@@ -3,24 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#150D0B"
     android:orientation="vertical"
     tools:context=".Fragment.firstFragment">
 
-    <TextView
-        android:paddingTop="30dp"
-        android:id="@+id/nameMovies"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/sf_pro_display_bold"
-        android:gravity="center"
-        android:text="Altered Carbon"
-        android:textColor="@color/white"
-        android:textSize="24dp" />
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        android:scrollbars="horizontal"/>
 
-    <ImageView
-        android:id="@+id/posterMovies"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+
 
 </LinearLayout>
