@@ -16,6 +16,7 @@ import com.example.worldcinema.network.models.MovieResponse;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AdapterMovies  extends RecyclerView.Adapter<AdapterMovies.ViewHolder>{
     private ArrayList<MovieResponse> movieResponse;

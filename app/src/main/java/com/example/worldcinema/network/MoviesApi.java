@@ -1,6 +1,9 @@
 package com.example.worldcinema.network;
 
+import com.example.worldcinema.network.models.MovieResponse;
 import com.example.worldcinema.network.service.ApiService;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -12,6 +15,8 @@ public class MoviesApi {
 
     private static final String BASE_URL="http://cinema.areas.su/";
     private Retrofit retrofit;
+
+
 
     public MoviesApi(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();

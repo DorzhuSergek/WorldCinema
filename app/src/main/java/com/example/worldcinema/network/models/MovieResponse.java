@@ -2,6 +2,8 @@ package com.example.worldcinema.network.models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class MovieResponse {
 
     @SerializedName("movieID")
@@ -15,15 +17,12 @@ public class MovieResponse {
     @SerializedName("age")
     private String age;
 
-    public MovieResponse(String toString) {
+    public String getMovieId() {
+        return movieId;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setMovieId(String movieId) {
+        this.movieId = movieId;
     }
 
     public String getPoster() {
@@ -34,4 +33,27 @@ public class MovieResponse {
         this.poster = poster;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
 }
