@@ -2,6 +2,7 @@ package com.example.worldcinema;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.Button;
@@ -10,7 +11,8 @@ import android.widget.Toast;
 
 import com.example.worldcinema.network.ErrorUtils;
 import com.example.worldcinema.network.RegistrationApi;
-import com.example.worldcinema.network.models.RegisterAccount;
+import com.example.worldcinema.network.models.RegisterBody;
+import com.example.worldcinema.network.models.RegisterResponse;
 import com.example.worldcinema.network.service.ApiService;
 
 import retrofit2.Call;
@@ -38,33 +40,31 @@ public class SignUpScreen extends AppCompatActivity {
     }
 
     private void registrationAccount() {
-        AsyncTask.execute(() -> {
-            service.registrationAccount(getLoginData()).enqueue(new Callback<RegisterAccount>() {
+        AsyncTask.execute(()->{
+            service.registrationAccount(setRegistrationBody()).enqueue(new Callback<RegisterBody>() {
                 @Override
-                public void onResponse(Call<RegisterAccount> call, Response<RegisterAccount> response) {
-                    if (response.isSuccessful()) {
-                        Toast.makeText(getApplicationContext(), "Успешно", Toast.LENGTH_SHORT).show();
-                    } else {
-                        switch (response.code()) {
-                            case 404:
-                                String error = ErrorUtils.parseError(response).message();
-                                Toast.makeText(getApplicationContext(), error, Toast.LENGTH_SHORT).show();
-                            default:
-                                Toast.makeText(getApplicationContext(), "Произошла неизвестная ошибка! Попробуйте позже", Toast.LENGTH_SHORT).show();
-                        }
+                public void onResponse(Call<RegisterBody> call, Response<RegisterBody> response) {
+                    if(response.isSuccessful()){
+                        Toast.makeText(getApplicationContext(),"Успешно",Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(SignUpScreen.this,MainActivity.class));
                     }
                 }
 
                 @Override
-                public void onFailure(Call<RegisterAccount> call, Throwable t) {
-                    Toast.makeText(getApplicationContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                    System.out.println(t.getLocalizedMessage());
+                public void onFailure(Call<RegisterBody> call, Throwable t) {
+                    startActivity(new Intent(getApplicationContext(),SignInScreen.class));
                 }
             });
-        });
-    }
-    private RegisterAccount getLoginData() {
 
-        return new RegisterAccount(firstName.getText().toString(),surname.getText().toString(),email.getText().toString(),password.getText().toString());
+        });
+
+
     }
+
+
+    private RegisterBody setRegistrationBody() {
+        return new RegisterBody(email.getText().toString(),password.getText().toString(),firstName.getText().toString(),surname.getText().toString());
+    }
+
+
 }

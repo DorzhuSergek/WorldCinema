@@ -4,13 +4,16 @@ import com.example.worldcinema.network.models.LoginBody;
 import com.example.worldcinema.network.models.LoginResponse;
 import com.example.worldcinema.network.models.MovieCoverResponse;
 import com.example.worldcinema.network.models.MovieResponse;
-import com.example.worldcinema.network.models.RegisterAccount;
+import com.example.worldcinema.network.models.ProfileResponse;
+import com.example.worldcinema.network.models.RegisterBody;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.HEAD;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 
 public interface ApiService {
@@ -25,6 +28,10 @@ public interface ApiService {
 
 
     @POST("/auth/register")
-    Call<RegisterAccount> registrationAccount(@Body RegisterAccount registerAccount);
+    Call<RegisterBody> registrationAccount(@Body RegisterBody registerAccount);
+
+
+    @GET("user")
+    Call<List<ProfileResponse>> getData(@Header("Authorization") String token);
 }
 

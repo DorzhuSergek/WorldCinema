@@ -2,7 +2,7 @@ package com.example.worldcinema.network.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class RegisterAccount {
+public class RegisterBody {
     @SerializedName("email")
     private String email;
     @SerializedName("password")
@@ -12,8 +12,11 @@ public class RegisterAccount {
     @SerializedName("lastName")
     private String lastName;
 
-    public RegisterAccount(String toString, String toString1, String toString2, String toString3) {
-
+    public RegisterBody(String email, String password, String firstName, String lastName) {
+        this.email = email;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public String getEmail() {
