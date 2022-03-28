@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,7 +23,7 @@ public class AdapterMovies  extends RecyclerView.Adapter<AdapterMovies.ViewHolde
     private ArrayList<MovieResponse> movieResponse;
     private LayoutInflater inflater;
     private Context context;
-
+    private OnItemClickListener onItemClickListener;
     public AdapterMovies(ArrayList<MovieResponse> movieResponse, Context context) {
         this.movieResponse = movieResponse;
         this.inflater = LayoutInflater.from(context);
@@ -56,10 +57,12 @@ public class AdapterMovies  extends RecyclerView.Adapter<AdapterMovies.ViewHolde
         final private ImageView coverCinema;
         final private TextView txtCinema;
 
+
         private ViewHolder(View view) {
             super(view);
             this.coverCinema = (ImageView) view.findViewById(R.id.image_cover_cinema);
             this.txtCinema = (TextView) view.findViewById(R.id.txt_cover_cinema);
+
         }
 
         public void setTextCinema(String text) {

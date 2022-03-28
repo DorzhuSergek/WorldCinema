@@ -14,8 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.worldcinema.ChatListScreen;
 import com.example.worldcinema.R;
 import com.example.worldcinema.SignInScreen;
 import com.example.worldcinema.network.ProfileApi;
@@ -36,7 +38,7 @@ public class FourthFragment extends Fragment {
     ImageView imageUser;
     private String token;
     ApiService service = ProfileApi.getInstance().getService();
-
+    LinearLayout discussion;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -55,6 +57,12 @@ public class FourthFragment extends Fragment {
             }
         });
         getUserInfo();
+        discussion=view.findViewById(R.id.discussion);
+        discussion.setOnClickListener(view1 -> {
+            startActivity(new Intent(getContext(), ChatListScreen.class));
+        });
+
+
         return view;
     }
 
