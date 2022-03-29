@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.worldcinema.ChatListScreen;
 import com.example.worldcinema.R;
@@ -60,6 +61,7 @@ public class FourthFragment extends Fragment {
         discussion=view.findViewById(R.id.discussion);
         discussion.setOnClickListener(view1 -> {
             startActivity(new Intent(getContext(), ChatListScreen.class));
+
         });
 
 

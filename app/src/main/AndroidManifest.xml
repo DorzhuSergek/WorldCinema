@@ -15,7 +15,8 @@
         android:theme="@style/Theme.WorldCinema">
         <activity
             android:name=".ChatScreen"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ChatListScreen"
             android:exported="false" />

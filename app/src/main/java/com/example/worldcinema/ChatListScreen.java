@@ -37,6 +37,7 @@ public class ChatListScreen extends AppCompatActivity {
             startActivity(new Intent(this,MainActivity.class));
         });
         recyclerView =findViewById(R.id.chat_recycler);
+
     }
 
     private void fetchChat(String movieId) {

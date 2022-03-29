@@ -1,6 +1,7 @@
 package com.example.worldcinema.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,8 +10,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.worldcinema.ChatScreen;
 import com.example.worldcinema.R;
 import com.example.worldcinema.network.models.MovieCoverResponse;
 import com.example.worldcinema.network.models.MovieResponse;
@@ -23,6 +26,8 @@ public class AdapterMovies  extends RecyclerView.Adapter<AdapterMovies.ViewHolde
     private ArrayList<MovieResponse> movieResponse;
     private LayoutInflater inflater;
     private Context context;
+    private CardView cardView ;
+
     private OnItemClickListener onItemClickListener;
     public AdapterMovies(ArrayList<MovieResponse> movieResponse, Context context) {
         this.movieResponse = movieResponse;
@@ -35,6 +40,11 @@ public class AdapterMovies  extends RecyclerView.Adapter<AdapterMovies.ViewHolde
     public AdapterMovies.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
         View view = inflater.inflate(R.layout.list_item, parent, false);
+        this.cardView = view.findViewById(R.id.moviePoster);
+        cardView.setOnClickListener(view1 -> {
+            context.startActivity(new Intent(context, ChatScreen.class));
+        });
+
         return new AdapterMovies.ViewHolder(view);
     }
 
@@ -45,6 +55,8 @@ public class AdapterMovies  extends RecyclerView.Adapter<AdapterMovies.ViewHolde
         Picasso.with(context).
                 load("http://cinema.areas.su/up/images/" + movieResponse1.getPoster()).
                 into(holder.coverCinema);
+
+
     }
 
     @Override
@@ -56,7 +68,6 @@ public class AdapterMovies  extends RecyclerView.Adapter<AdapterMovies.ViewHolde
 
         final private ImageView coverCinema;
         final private TextView txtCinema;
-
 
         private ViewHolder(View view) {
             super(view);
