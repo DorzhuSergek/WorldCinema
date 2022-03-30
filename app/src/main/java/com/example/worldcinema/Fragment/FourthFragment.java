@@ -38,21 +38,22 @@ public class FourthFragment extends Fragment {
     TextView nameUser, emailUser;
     ImageView imageUser;
     private String token;
+    private SharedPreferences.Editor editor;
     ApiService service = ProfileApi.getInstance().getService();
     LinearLayout discussion;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_fourth, container, false);
         exit = view.findViewById(R.id.exit_account);
         nameUser = view.findViewById(R.id.nameUser);
         emailUser = view.findViewById(R.id.email);
+        sharedPreferences = getContext().getSharedPreferences("token", Context.MODE_PRIVATE);
+        editor = getContext().getSharedPreferences("token", Context.MODE_PRIVATE).edit();
         imageUser = view.findViewById(R.id.imageUser);
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sharedPreferences = getContext().getSharedPreferences("token", Context.MODE_PRIVATE);
                 sharedPreferences.edit().remove("token").commit();
                 startActivity(new Intent(getContext(), SignInScreen.class));
             }
@@ -75,9 +76,12 @@ public class FourthFragment extends Fragment {
                 public void onResponse(Call<List<ProfileResponse>> call, Response<List<ProfileResponse>> response) {
                     emailUser.setText(response.body().get(0).getEmail());
                     nameUser.setText(response.body().get(0).getFirstName() + " " + response.body().get(0).getLastName());
+                    editor.putString("firstName", response.body().get(0).getFirstName()).apply();
+                    editor.putString("lastName", response.body().get(0).getLastName()).apply();
                     Picasso.with(getContext()).
                             load("http://cinema.areas.su/up/images/" + response.body().get(0).getAvatar()).
                             into(imageUser);
+
                 }
 
                 @Override

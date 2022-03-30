@@ -4,99 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000"
-    android:orientation="vertical"
     tools:context=".ChatScreen"
-    android:padding="16dp">
+    android:background="@color/black">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_margin="16dp"
         android:layout_height="wrap_content">
-
         <LinearLayout
+            android:layout_marginStart="20dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
+            android:layout_height="wrap_content">
             <ImageView
                 android:id="@+id/back_arrow"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:background="#000"
-                app:srcCompat="@drawable/arrow_back" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
+                android:layout_width="12dp"
+                android:layout_height="21dp"
+                android:src="@drawable/arrow_back"
+                android:background="@android:color/transparent"
+                />
             <TextView
                 android:id="@+id/textTitleCollections"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Игра престолов"
+                android:textSize="20dp"
                 android:textColor="@color/white"
-                android:textSize="17sp"
-                android:textStyle="bold"
-                android:gravity="center"
-                android:text="Название фильма" />
-
+                android:layout_gravity="center"
+                android:gravity="center"/>
         </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="16"
-        android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewChat"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:layout_weight="1">
 
-            <EditText
-                android:id="@+id/message_chat"
-                android:layout_width="match_parent"
-                android:layout_height="42dp"
-                android:background="@drawable/border_edit"
-                android:hint="Напишите сообщение..."
-                android:textColor="@color/white"
-                android:textColorHint="#AFAFAF"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                tools:ignore="TouchTargetSizeCheck" />
-
-        </LinearLayout>
-
+        </androidx.recyclerview.widget.RecyclerView>
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="0.1"
-            android:gravity="center"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+            <EditText
+                android:id="@+id/textMessage"
+                android:textColorHint="#A8A8A8"
+                android:textColor="#A8A8A8"
+                android:hint="Напишите сообщение..."
+                android:layout_width="300dp"
+                android:layout_gravity="center"
+                android:padding="16dp"
+                android:background="@drawable/border_edit"
+                android:layout_height="50dp">
+            </EditText>
 
+            <ImageButton
+                android:id="@+id/btn_send"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center"
+                android:layout_margin="16dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/elipse_6"
+                tools:ignore="SpeakableTextPresentCheck" />
 
-            <ImageView
-                android:id="@+id/imageButton2"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:background="#000"
-                app:srcCompat="@drawable/elipse_6" />
         </LinearLayout>
-    </LinearLayout>
+    </TableLayout>
 </LinearLayout>

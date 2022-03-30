@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -22,13 +23,15 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdapterMovies  extends RecyclerView.Adapter<AdapterMovies.ViewHolder>{
+public class AdapterMovies extends RecyclerView.Adapter<AdapterMovies.ViewHolder> {
     private ArrayList<MovieResponse> movieResponse;
     private LayoutInflater inflater;
     private Context context;
-    private CardView cardView ;
-
+    private CardView cardView;
+    private String movieID;
     private OnItemClickListener onItemClickListener;
+    private CardView moviePoster;
+
     public AdapterMovies(ArrayList<MovieResponse> movieResponse, Context context) {
         this.movieResponse = movieResponse;
         this.inflater = LayoutInflater.from(context);
@@ -41,10 +44,11 @@ public class AdapterMovies  extends RecyclerView.Adapter<AdapterMovies.ViewHolde
         context = parent.getContext();
         View view = inflater.inflate(R.layout.list_item, parent, false);
         this.cardView = view.findViewById(R.id.moviePoster);
+        moviePoster = view.findViewById(R.id.moviePoster);
+
         cardView.setOnClickListener(view1 -> {
             context.startActivity(new Intent(context, ChatScreen.class));
         });
-
         return new AdapterMovies.ViewHolder(view);
     }
 
@@ -52,6 +56,14 @@ public class AdapterMovies  extends RecyclerView.Adapter<AdapterMovies.ViewHolde
     public void onBindViewHolder(AdapterMovies.ViewHolder holder, int position) {
         MovieResponse movieResponse1 = movieResponse.get(position);
         holder.setTextCinema(movieResponse1.getName());
+        moviePoster.setOnClickListener(view -> {
+            Intent intent = new Intent(context, ChatScreen.class);
+            String movieID = movieResponse1.getMovieId();
+            intent.putExtra("movieId",movieID);
+            context.startActivity(intent);
+        });
+
+
         Picasso.with(context).
                 load("http://cinema.areas.su/up/images/" + movieResponse1.getPoster()).
                 into(holder.coverCinema);

@@ -1,6 +1,7 @@
 package com.example.worldcinema.network.service;
 
 import com.example.worldcinema.network.models.ChatListResponse;
+import com.example.worldcinema.network.models.ChatPostResponse;
 import com.example.worldcinema.network.models.ChatResponse;
 import com.example.worldcinema.network.models.LoginBody;
 import com.example.worldcinema.network.models.LoginResponse;
@@ -22,10 +23,8 @@ public interface ApiService {
     @POST("login")
     Call<LoginResponse> doLogin(@Body LoginBody registerBody);
 
-    @GET("cover")
-    Call<MovieCoverResponse> fetchMovieCover();
 
-    @GET("movies?filter=inTrend")
+    @GET("movies?filter=new")
     Call<List<MovieResponse>> fetchMovie();
 
 
@@ -39,7 +38,10 @@ public interface ApiService {
     @GET("chats/{movieId}")
     Call<List<ChatListResponse>> getChats(@Path("movieId") String movieId);
 
-    @POST("chats/1/messages")
-    Call<List<ChatResponse>> getInfoChats(@Header("Authorization") String token);
+    @GET("chats/{chatId}/messages")
+    Call<List<ChatResponse>> getInfoChats(@Path("chatId") String chatId,@Header("Authorization") String token);
+
+    @POST("chats/{chatId}/messages")
+    Call<List<ChatPostResponse>> getSendMessage(@Header("Authorization") String token);
 }
 

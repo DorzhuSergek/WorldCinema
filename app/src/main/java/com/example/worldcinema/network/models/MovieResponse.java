@@ -6,7 +6,7 @@ import java.util.List;
 
 public class MovieResponse {
 
-    @SerializedName("movieID")
+    @SerializedName("movieId")
     private String movieId;
     @SerializedName("poster")
     private String poster;
