@@ -1,5 +1,6 @@
 package com.example.worldcinema.network.service;
 
+import com.example.worldcinema.network.models.ChatBody;
 import com.example.worldcinema.network.models.ChatListResponse;
 import com.example.worldcinema.network.models.ChatPostResponse;
 import com.example.worldcinema.network.models.ChatResponse;
@@ -42,6 +43,6 @@ public interface ApiService {
     Call<List<ChatResponse>> getInfoChats(@Path("chatId") String chatId,@Header("Authorization") String token);
 
     @POST("chats/{chatId}/messages")
-    Call<List<ChatPostResponse>> getSendMessage(@Header("Authorization") String token);
+    Call<List<ChatPostResponse>> getSendMessage(@Header("Authorization") String token,@Path("chatId") String chatId,@Body ChatBody message);
 }
 
