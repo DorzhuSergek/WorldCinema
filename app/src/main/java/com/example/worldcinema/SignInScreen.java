@@ -35,8 +35,8 @@ public class SignInScreen extends AppCompatActivity {
 
     ApiService service = ApiHandler.getInstance().getService();
     String token;
-    SharedPreferences sharedPreferences;
-    SharedPreferences edit;
+        SharedPreferences sharedPreferences;
+        SharedPreferences edit;
     Button reg;
 
     @Override
