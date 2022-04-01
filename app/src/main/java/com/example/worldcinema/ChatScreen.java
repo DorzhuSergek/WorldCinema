@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -18,7 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.worldcinema.Adapter.AdapterChats;
-import com.example.worldcinema.network.ChatsListAPI;
+import com.example.worldcinema.network.ApiHandler;
 import com.example.worldcinema.network.models.ChatBody;
 import com.example.worldcinema.network.models.ChatListResponse;
 import com.example.worldcinema.network.models.ChatPostResponse;
@@ -49,7 +48,7 @@ public class ChatScreen extends AppCompatActivity {
     String chatId;
     ImageButton sendMessageBtn;
     private EditText message;
-    ApiService service = ChatsListAPI.getInstance().getService();
+    ApiService service = ApiHandler.getInstance().getService();
     private ArrayList<ChatListResponse> chatResponses;
     private ArrayList<ChatResponse> chatResponses1;
 

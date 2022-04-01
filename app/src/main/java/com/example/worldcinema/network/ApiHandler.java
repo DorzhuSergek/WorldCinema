@@ -10,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiHandler {
     private static ApiHandler mInstance;
     //Базовый URl
-    private static final String BASE_URL = "http://cinema.areas.su/auth/";
+    private static final String BASE_URL = "http://cinema.areas.su/";
     private Retrofit retrofit;
 
     public ApiHandler() {

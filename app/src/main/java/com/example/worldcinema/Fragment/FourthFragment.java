@@ -21,7 +21,7 @@ import android.widget.Toast;
 import com.example.worldcinema.ChatListScreen;
 import com.example.worldcinema.R;
 import com.example.worldcinema.SignInScreen;
-import com.example.worldcinema.network.ProfileApi;
+import com.example.worldcinema.network.ApiHandler;
 import com.example.worldcinema.network.models.ProfileResponse;
 import com.example.worldcinema.network.service.ApiService;
 import com.squareup.picasso.Picasso;
@@ -41,7 +41,7 @@ public class FourthFragment extends Fragment {
     ImageView imageUser;
     private String token;
     private SharedPreferences.Editor editor;
-    ApiService service = ProfileApi.getInstance().getService();
+    ApiService service = ApiHandler.getInstance().getService();
     LinearLayout discussion;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

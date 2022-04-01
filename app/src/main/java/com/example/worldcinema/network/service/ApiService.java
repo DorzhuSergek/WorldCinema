@@ -21,7 +21,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface ApiService {
-    @POST("login")
+    @POST("auth/login")
     Call<LoginResponse> doLogin(@Body LoginBody registerBody);
 
 
@@ -29,7 +29,7 @@ public interface ApiService {
     Call<List<MovieResponse>> fetchMovie();
 
 
-    @POST("/auth/register")
+    @POST("auth/register")
     Call<RegisterBody> registrationAccount(@Body RegisterBody registerAccount);
 
 

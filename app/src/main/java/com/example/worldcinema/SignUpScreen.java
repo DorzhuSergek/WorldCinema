@@ -9,10 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.worldcinema.network.ErrorUtils;
-import com.example.worldcinema.network.RegistrationApi;
+import com.example.worldcinema.network.ApiHandler;
 import com.example.worldcinema.network.models.RegisterBody;
-import com.example.worldcinema.network.models.RegisterResponse;
 import com.example.worldcinema.network.service.ApiService;
 
 import retrofit2.Call;
@@ -23,7 +21,7 @@ public class SignUpScreen extends AppCompatActivity {
 
     //создаем переменные
     EditText firstName, surname, email, password;
-    ApiService service = RegistrationApi.getInstance().getService();
+    ApiService service = ApiHandler.getInstance().getService();
 
     Button registration;
     @Override

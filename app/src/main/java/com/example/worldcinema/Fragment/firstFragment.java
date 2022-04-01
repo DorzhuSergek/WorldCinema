@@ -12,16 +12,13 @@ import androidx.recyclerview.widget.SnapHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.worldcinema.Adapter.AdapterMovies;
 import com.example.worldcinema.R;
+import com.example.worldcinema.network.ApiHandler;
 import com.example.worldcinema.network.ErrorUtils;
-import com.example.worldcinema.network.MoviesApi;
 import com.example.worldcinema.network.models.MovieResponse;
 import com.example.worldcinema.network.service.ApiService;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 
 import java.util.ArrayList;
@@ -35,7 +32,7 @@ public class firstFragment extends Fragment {
     //создаем переменные которые кам пригодятся
     RecyclerView recyclerView;
     private ArrayList<MovieResponse> movieResponses;
-    ApiService service = MoviesApi.getInstance().getService();
+    ApiService service = ApiHandler.getInstance().getService();
     private AdapterMovies adapterMovies;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
