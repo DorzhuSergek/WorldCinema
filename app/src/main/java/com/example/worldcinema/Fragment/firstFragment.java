@@ -30,8 +30,9 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
+//это код первого фрагмента
 public class firstFragment extends Fragment {
+    //создаем переменные которые кам пригодятся
     RecyclerView recyclerView;
     private ArrayList<MovieResponse> movieResponses;
     ApiService service = MoviesApi.getInstance().getService();
@@ -40,21 +41,26 @@ public class firstFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_first, container, false);
+        //создает элементы для свайпа постеров
         SnapHelper snapHelper = new PagerSnapHelper();
         LinearLayoutManager layoutManager =new LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false);
+        //иницилизируем элементы
         recyclerView = view.findViewById(R.id.recycleView);
         recyclerView.setLayoutManager(layoutManager);
         snapHelper.attachToRecyclerView(recyclerView);
+        //вызываем метод для обработки данных
         fetchMovieCover();
         return view;
     }
 
     private void fetchMovieCover() {
+
         AsyncTask.execute(() -> {
             service.fetchMovie().enqueue(new Callback<List<MovieResponse>>() {
-
                 @Override
                 public void onResponse(Call<List<MovieResponse>> call, Response<List<MovieResponse>> response) {
+                    //onResponse вызывается всегда
+                    //проверяем успешен ли запрос
                     if (response.isSuccessful()) {
                         movieResponses=new ArrayList<>(response.body());
                         adapterMovies = new AdapterMovies(movieResponses, getContext());
@@ -70,11 +76,11 @@ public class firstFragment extends Fragment {
 
                 @Override
                 public void onFailure(Call<List<MovieResponse>> call, Throwable t) {
+                    // в блоке onFailure обрабатываются ошибки, которые не связаны с сервером бэкэнда
+                    // например если на устройстве нет доступа в Интернет
                     System.out.println(t.getLocalizedMessage()+"Локальная проблема");
-
                 }
             });
-
         });
     }
 }

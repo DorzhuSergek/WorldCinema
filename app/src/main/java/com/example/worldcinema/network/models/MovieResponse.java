@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class MovieResponse {
-
+    //это то что мы будем получать
     @SerializedName("movieId")
     private String movieId;
     @SerializedName("poster")

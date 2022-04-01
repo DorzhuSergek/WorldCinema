@@ -12,6 +12,8 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
+        //здесь мы указываем, что через 3 секунды нужно
+        //запустить экран SignInScreen
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {

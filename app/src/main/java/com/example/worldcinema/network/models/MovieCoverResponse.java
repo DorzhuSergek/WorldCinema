@@ -3,7 +3,7 @@ package com.example.worldcinema.network.models;
 import com.google.gson.annotations.SerializedName;
 
 public class MovieCoverResponse {
-
+    //это то что мы будем получать
     @SerializedName("movieID")
     private String movieId;
     @SerializedName("backgroundImage")

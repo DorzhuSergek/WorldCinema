@@ -27,29 +27,31 @@ import retrofit2.Response;
 
 
 public class SignInScreen extends AppCompatActivity {
+    //создаем переменные
     Button logIn;
-
-    private static final String MY_SETTINGS = "my_settings";
-
     EditText editEmail, editPassword;
-
-    ApiService service = ApiHandler.getInstance().getService();
     String token;
-        SharedPreferences sharedPreferences;
-        SharedPreferences edit;
+    SharedPreferences sharedPreferences;
+    SharedPreferences edit;
     Button reg;
+    ApiService service = ApiHandler.getInstance().getService();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in_screen);
+        //иницилизируем переменные
         logIn = findViewById(R.id.LogIn);
         editEmail = findViewById(R.id.editTextTextEmailAddress);
         editPassword = findViewById(R.id.editTextTextPassword);
         reg = findViewById(R.id.SignIn);
+        //клик по кнопке
         reg.setOnClickListener(view -> {
-            startActivity(new Intent(SignInScreen.this,SignUpScreen.class));
+            startActivity(new Intent(SignInScreen.this, SignUpScreen.class));
         });
+
+        //сохраняем токен
         sharedPreferences = getSharedPreferences("token", Context.MODE_PRIVATE);
         edit = getSharedPreferences("token", Context.MODE_PRIVATE);
         token = sharedPreferences.getString("token", "");
@@ -60,30 +62,28 @@ public class SignInScreen extends AppCompatActivity {
                 doLogin();
             }
         });
-
+        //проверка на авторизию
+        //проверяем пользователь был авторизиван или нет
         if (token != "") {
             startActivity(new Intent(SignInScreen.this, MainActivity.class));
             finish();
         }
-//        if(mSettings.getBoolean("is_logged",false)){
-//            startActivity(new Intent(SignInScreen.this,MainActivity.class));
-//            finish();
-//        }
     }
-
+        //метод для регистрации
     private void doLogin() {
-
         AsyncTask.execute(() -> {
             service.doLogin(getLoginData()).enqueue(new Callback<LoginResponse>() {
                 @Override
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if (response.isSuccessful()) {
+                        //если все успешно переходим на главный экрна
+                        //и записывает токен
                         Intent intent = new Intent(SignInScreen.this, MainActivity.class);
                         startActivity(intent);
                         sharedPreferences.edit().putString("token", response.body().getToken()).apply();
 
                     } else if (response.code() == 400) {
-
+                        //если ошибка выводим сообщение
                         String serverErrorMessage = ErrorUtils.parseError(response).message();
                         Toast.makeText(getApplicationContext(), serverErrorMessage, Toast.LENGTH_SHORT).show();
                         System.out.println(serverErrorMessage);

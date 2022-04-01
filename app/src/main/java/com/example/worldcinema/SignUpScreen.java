@@ -20,20 +20,23 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SignUpScreen extends AppCompatActivity {
+
+    //создаем переменные
     EditText firstName, surname, email, password;
     ApiService service = RegistrationApi.getInstance().getService();
 
     Button registration;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_screen);
+        //иницилизируем переменные
         firstName = findViewById(R.id.personName);
         surname = findViewById(R.id.personSurname);
         email = findViewById(R.id.personEmail);
         password = findViewById(R.id.textPassword);
         registration = findViewById(R.id.button);
+        //вызываем метод регистрации по клику
         registration.setOnClickListener(view -> {
             registrationAccount();
         });
@@ -45,6 +48,7 @@ public class SignUpScreen extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<RegisterBody> call, Response<RegisterBody> response) {
                     if(response.isSuccessful()){
+                        //если успешно выводим сообщение
                         Toast.makeText(getApplicationContext(),"Успешно",Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(SignUpScreen.this,MainActivity.class));
                     }

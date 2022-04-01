@@ -32,9 +32,12 @@
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/WorldCinema/app/src/main/res/layout/list_item.xml" value="0.1" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/WorldCinema/app/src/main/res/layout/message_item_me.xml" value="0.5026642984014209" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/WorldCinema/app/src/main/res/menu/bottom_menu.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/WorldCinema/myapplication/src/main/res/drawable/bottom_border.xml" value="0.1" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/WorldCinema/myapplication/src/main/res/layout/activity_discussion_screen.xml" value="0.5674418604651162" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/WorldCinema/myapplication/src/main/res/layout/activity_main.xml" value="1.0" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/WorldCinema/myapplication/src/main/res/layout/activity_main_screen_movies.xml" value="1.4786184210526316" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/WorldCinema/myapplication/src/main/res/layout/activity_sign_in_screen.xml" value="0.95" />
+        <entry key="..\:/Users/Administrator/AndroidStudioProjects/WorldCinema/myapplication/src/main/res/layout/discussion_item.xml" value="0.5674418604651162" />
         <entry key="..\:/Users/Administrator/AndroidStudioProjects/WorldCinema/myapplication/src/main/res/layout/movie_item.xml" value="1.0" />
       </map>
     </option>

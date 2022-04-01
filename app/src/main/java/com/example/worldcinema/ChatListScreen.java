@@ -14,7 +14,6 @@ import com.example.worldcinema.network.ChatsListAPI;
 import com.example.worldcinema.network.service.ApiService;
 
 public class ChatListScreen extends AppCompatActivity {
-
     RecyclerView recyclerView;
 
 

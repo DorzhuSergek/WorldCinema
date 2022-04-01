@@ -9,7 +9,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ChatsListAPI {
     private static ChatsListAPI mInstance;
-
     private static final String BASE_URL = "http://cinema.areas.su/";
     private Retrofit retrofit;
 

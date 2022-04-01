@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.example.myapplication.databinding.ActivityMainBinding;
 
 public class MainActivity extends Activity {
-    LinearLayout mainBtn;
+    LinearLayout mainBtn,disBtn;
     private TextView mTextView;
     private ActivityMainBinding binding;
 
@@ -23,6 +23,10 @@ public class MainActivity extends Activity {
         mainBtn = findViewById(R.id.main);
         mainBtn.setOnClickListener(view -> {
             startActivity(new Intent(this, MainScreenMovies.class));
+        });
+        disBtn=findViewById(R.id.discussion);
+        disBtn.setOnClickListener(view -> {
+            startActivity(new Intent(this,DiscussionScreen.class));
         });
 //        mTextView = binding.text;
     }

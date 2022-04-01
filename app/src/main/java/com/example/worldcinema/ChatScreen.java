@@ -35,6 +35,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ChatScreen extends AppCompatActivity {
+
+    //создаем нужные нам переменные
     ImageView imageView;
     String movieId;
     Bundle arguments;
@@ -55,16 +57,20 @@ public class ChatScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //иницилизируем переменные
         setContentView(R.layout.activity_chat_screen);
         imageView = findViewById(R.id.back_arrow);
         nameChat = findViewById(R.id.textTitleCollections);
-        sharedPreferences = getApplicationContext().getSharedPreferences("token", Context.MODE_PRIVATE);
-        token = sharedPreferences.getString("token", "");
-        sendMessageBtn = findViewById(R.id.btn_send);
-        myFirstName = sharedPreferences.getString("firstName", "");
-        mySecondName = sharedPreferences.getString("lastName", "");
         message = findViewById(R.id.textMessage);
         recyclerView = findViewById(R.id.recyclerViewChat);
+        sendMessageBtn = findViewById(R.id.btn_send);
+        //сохраняем нужные нам переменные в локальное хранилище
+        sharedPreferences = getApplicationContext().getSharedPreferences("token", Context.MODE_PRIVATE);
+        token = sharedPreferences.getString("token", "");
+        myFirstName = sharedPreferences.getString("firstName", "");
+        mySecondName = sharedPreferences.getString("lastName", "");
+
+
         imageView.setOnClickListener(view -> {
             startActivity(new Intent(this, MainActivity.class));
         });
@@ -78,12 +84,16 @@ public class ChatScreen extends AppCompatActivity {
             adapterChats.notifyDataSetChanged();
             message.setText(null);
         });
+
+        //здесь мы запускаем метод messageChat каждые 0,1с для обновление данных из сервера
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 messageChat(chatId, token);
             }
-        },0,    100);
+        }, 0, 100);
+
+        //метод для получение данных из сервера
         fetchChat(movieId);
     }
 
@@ -94,6 +104,7 @@ public class ChatScreen extends AppCompatActivity {
                 public void onResponse(Call<List<ChatListResponse>> call, Response<List<ChatListResponse>> response) {
                     if (response.isSuccessful()) {
                         chatResponses = new ArrayList<>(response.body());
+                        //если чат по фильму не обнаружен, то выводим уведомление
                         if (chatResponses.size() == 0) {
                             Toast.makeText(ChatScreen.this, "Чат не найден", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -112,7 +123,7 @@ public class ChatScreen extends AppCompatActivity {
             });
         });
     }
-
+    //здесь мы выводим сообщение из чата в наш RecyclerView
     private void messageChat(String chatId, String token) {
         AsyncTask.execute(() -> {
             service.getInfoChats(chatId, token).enqueue(new Callback<List<ChatResponse>>() {
@@ -121,12 +132,12 @@ public class ChatScreen extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         chatResponses1 = new ArrayList<>(response.body());
                         for (int i = 0; i < response.body().size(); i++) {
-                            if (myFirstName == response.body().get(i).getFirstName() && mySecondName == response.body().get(i).getLastName()) {
+                            chatResponses1.get(i).setViewType(1);
+                            if (response.body().get(i).getFirstName().equals(myFirstName) && response.body().get(i).getLastName().equals(mySecondName)) {
                                 chatResponses1.get(i).setViewType(0);
-                            } else {
-                                chatResponses1.get(i).setViewType(1);
                             }
                         }
+                        //через adapter выводим сообщение в RecyclerView
                         adapterChats = new AdapterChats(chatResponses1);
                         recyclerView.setAdapter(adapterChats);
                         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -142,7 +153,8 @@ public class ChatScreen extends AppCompatActivity {
             });
         });
     }
-
+    //метод для отправки текста в чат
+    //по документации мы должны передать в него токен, Id чата, и сам текст
     private void sendMessage(String token, String chatId, ChatBody text) {
         AsyncTask.execute(() -> {
             service.getSendMessage(token, chatId, text).enqueue(new Callback<List<ChatPostResponse>>() {

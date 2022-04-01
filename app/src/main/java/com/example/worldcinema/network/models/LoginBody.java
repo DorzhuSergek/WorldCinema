@@ -5,6 +5,9 @@ import android.util.Log;
 import com.google.gson.annotations.SerializedName;
 
 public class LoginBody {
+
+    //это то что мы будем отправлять
+
     @SerializedName("email")
     private String email;
     @SerializedName("password")

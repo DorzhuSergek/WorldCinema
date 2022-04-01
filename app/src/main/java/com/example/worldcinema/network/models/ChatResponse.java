@@ -3,6 +3,10 @@ package com.example.worldcinema.network.models;
 import com.google.gson.annotations.SerializedName;
 
 public class ChatResponse {
+
+    //это то что мы будем получать
+
+
     @SerializedName("chatId")
     private String chatId;
     @SerializedName("messageId")

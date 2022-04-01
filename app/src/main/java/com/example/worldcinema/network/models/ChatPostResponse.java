@@ -3,6 +3,8 @@ package com.example.worldcinema.network.models;
 import com.google.gson.annotations.SerializedName;
 
 public class ChatPostResponse {
+
+    //это то что мы будем получать
     @SerializedName("text")
     private String text;
 

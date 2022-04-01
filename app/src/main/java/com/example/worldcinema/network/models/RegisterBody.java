@@ -3,6 +3,10 @@ package com.example.worldcinema.network.models;
 import com.google.gson.annotations.SerializedName;
 
 public class RegisterBody {
+
+
+//это то что мы будем отправлять
+
     @SerializedName("email")
     private String email;
     @SerializedName("password")

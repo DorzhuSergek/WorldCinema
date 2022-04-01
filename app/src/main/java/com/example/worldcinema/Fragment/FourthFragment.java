@@ -33,6 +33,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FourthFragment extends Fragment {
+
+    //создаем переменные
     SharedPreferences sharedPreferences;
     Button exit;
     TextView nameUser, emailUser;
@@ -45,20 +47,29 @@ public class FourthFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_fourth, container, false);
+        //иницилизируем переменные
         exit = view.findViewById(R.id.exit_account);
         nameUser = view.findViewById(R.id.nameUser);
         emailUser = view.findViewById(R.id.email);
+        imageUser = view.findViewById(R.id.imageUser);
+
+        //сохраняем в локальное хранилище токен авторизации
         sharedPreferences = getContext().getSharedPreferences("token", Context.MODE_PRIVATE);
         editor = getContext().getSharedPreferences("token", Context.MODE_PRIVATE).edit();
-        imageUser = view.findViewById(R.id.imageUser);
+
+        //это кнопка выхода из аккаунта, также очищает токен и данные о пользователе
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sharedPreferences.edit().remove("token").commit();
+                sharedPreferences.edit().remove("firstName").commit();
+                sharedPreferences.edit().remove("lastName").commit();
                 startActivity(new Intent(getContext(), SignInScreen.class));
             }
         });
+        //вызывает метод для получение данных о пользователе
         getUserInfo();
+        //переход на другой экран
         discussion=view.findViewById(R.id.discussion);
         discussion.setOnClickListener(view1 -> {
             startActivity(new Intent(getContext(), ChatListScreen.class));
@@ -74,18 +85,26 @@ public class FourthFragment extends Fragment {
             service.getData(token).enqueue(new Callback<List<ProfileResponse>>() {
                 @Override
                 public void onResponse(Call<List<ProfileResponse>> call, Response<List<ProfileResponse>> response) {
-                    emailUser.setText(response.body().get(0).getEmail());
-                    nameUser.setText(response.body().get(0).getFirstName() + " " + response.body().get(0).getLastName());
-                    editor.putString("firstName", response.body().get(0).getFirstName()).apply();
-                    editor.putString("lastName", response.body().get(0).getLastName()).apply();
-                    Picasso.with(getContext()).
-                            load("http://cinema.areas.su/up/images/" + response.body().get(0).getAvatar()).
-                            into(imageUser);
+                    //onResponse вызывается всегда
+                    //проверяем успешен ли запрос
+                    if(response.isSuccessful()){
+                        emailUser.setText(response.body().get(0).getEmail());
+                        nameUser.setText(response.body().get(0).getFirstName() + " " + response.body().get(0).getLastName());
+                        editor.putString("firstName", response.body().get(0).getFirstName()).apply();
+                        editor.putString("lastName", response.body().get(0).getLastName()).apply();
+                        String firstName = sharedPreferences.getString("firstName","");
+                        Picasso.with(getContext())
+                                .load("http://cinema.areas.su/up/images/" + response.body().get(0).getAvatar())
+                                .into(imageUser);
+                    }
 
                 }
 
                 @Override
                 public void onFailure(Call<List<ProfileResponse>> call, Throwable t) {
+                    // в блоке onFailure обрабатываются ошибки, которые не связаны с сервером бэкэнда
+                    // например если на устройстве нет доступа в Интернет
+                    Toast.makeText(getContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         });
