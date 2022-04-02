@@ -25,7 +25,7 @@ public interface ApiService {
     Call<LoginResponse> doLogin(@Body LoginBody registerBody);
 
 
-    @GET("movies?filter=forMe")
+    @GET("movies?filter=new")
     Call<List<MovieResponse>> fetchMovie();
 
 

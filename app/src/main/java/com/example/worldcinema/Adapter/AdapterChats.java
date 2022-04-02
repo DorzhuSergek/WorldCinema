@@ -25,7 +25,7 @@ import java.util.List;
 public class AdapterChats  extends RecyclerView.Adapter{
 
     private List<ChatResponse> chatResponses;
-
+    private String textNameMy, textNameOpp;
     public AdapterChats(List<ChatResponse> chatItems) {
         this.chatResponses = chatItems;
     }
@@ -50,8 +50,10 @@ public class AdapterChats  extends RecyclerView.Adapter{
         switch (chatResponses.get(position).getViewType()){
             case LayoutOne:
                 String text = chatResponses.get(position).getText();
+                textNameMy = chatResponses.get(position).getFirstName() + chatResponses.get(position).getLastName();
                 ((LayoutOneViewHolder)holder).setTxtMessage(text);
-                ((LayoutOneViewHolder)holder).setTxtNamePerson(text);
+                ((LayoutOneViewHolder)holder).setTxtNamePerson(textNameMy);
+                ((LayoutOneViewHolder)holder).setTxtNamePerson(chatResponses.get(position).getFirstName()+" "+chatResponses.get(position).getLastName() + " " +chatResponses.get(position).getCreationDateTime());
                 ((LayoutOneViewHolder)holder).imageView.setImageResource(R.drawable.poster_chat);
                 break;
             case LayoutTwo:

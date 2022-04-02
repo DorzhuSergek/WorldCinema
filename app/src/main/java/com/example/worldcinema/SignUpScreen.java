@@ -24,6 +24,7 @@ public class SignUpScreen extends AppCompatActivity {
     ApiService service = ApiHandler.getInstance().getService();
 
     Button registration;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,31 +42,28 @@ public class SignUpScreen extends AppCompatActivity {
     }
 
     private void registrationAccount() {
-        AsyncTask.execute(()->{
+        AsyncTask.execute(() -> {
             service.registrationAccount(setRegistrationBody()).enqueue(new Callback<RegisterBody>() {
                 @Override
                 public void onResponse(Call<RegisterBody> call, Response<RegisterBody> response) {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         //если успешно выводим сообщение
-                        Toast.makeText(getApplicationContext(),"Успешно",Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(SignUpScreen.this,MainActivity.class));
+                        Toast.makeText(getApplicationContext(), "Успешно", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(SignUpScreen.this, MainActivity.class));
                     }
                 }
-
                 @Override
                 public void onFailure(Call<RegisterBody> call, Throwable t) {
-                    startActivity(new Intent(getApplicationContext(),SignInScreen.class));
+                    startActivity(new Intent(getApplicationContext(), SignInScreen.class));
                 }
             });
 
         });
-
-
     }
 
 
     private RegisterBody setRegistrationBody() {
-        return new RegisterBody(email.getText().toString(),password.getText().toString(),firstName.getText().toString(),surname.getText().toString());
+        return new RegisterBody(email.getText().toString(), password.getText().toString(), firstName.getText().toString(), surname.getText().toString());
     }
 
 

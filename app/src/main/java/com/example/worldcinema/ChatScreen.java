@@ -84,18 +84,19 @@ public class ChatScreen extends AppCompatActivity {
             message.setText(null);
         });
 
-        //здесь мы запускаем метод messageChat каждые 0,1с для обновление данных из сервера
+        //здесь мы запускаем метод messageChat каждые 1с для обновление данных из сервера
         new Timer().scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 messageChat(chatId, token);
             }
-        }, 0, 100);
+        }, 0, 1000);
 
         //метод для получение данных из сервера
         fetchChat(movieId);
     }
-
+    //метод где мы по id фильма
+    //получаем id чата
     private void fetchChat(String movieId) {
         AsyncTask.execute(() -> {
             service.getChats(movieId).enqueue(new Callback<List<ChatListResponse>>() {
@@ -114,15 +115,17 @@ public class ChatScreen extends AppCompatActivity {
                         }
                     }
                 }
-
                 @Override
                 public void onFailure(Call<List<ChatListResponse>> call, Throwable t) {
-
+                    Toast.makeText(ChatScreen.this, t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         });
     }
     //здесь мы выводим сообщение из чата в наш RecyclerView
+    //по документации мы передает в метод id чата
+    //мы получили его выше
+    //и передать токен авториации
     private void messageChat(String chatId, String token) {
         AsyncTask.execute(() -> {
             service.getInfoChats(chatId, token).enqueue(new Callback<List<ChatResponse>>() {
@@ -144,7 +147,6 @@ public class ChatScreen extends AppCompatActivity {
                         recyclerView.scrollToPosition(chatResponses1.size() - 1);
                     }
                 }
-
                 @Override
                 public void onFailure(Call<List<ChatResponse>> call, Throwable t) {
 
@@ -163,10 +165,8 @@ public class ChatScreen extends AppCompatActivity {
                         Toast.makeText(ChatScreen.this, "Все успешно", Toast.LENGTH_SHORT).show();
                     }
                 }
-
                 @Override
                 public void onFailure(Call<List<ChatPostResponse>> call, Throwable t) {
-
                 }
             });
         });

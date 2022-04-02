@@ -77,9 +77,9 @@ public class SignInScreen extends AppCompatActivity {
                 public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
                     if (response.isSuccessful()) {
                         //если все успешно переходим на главный экрна
-                        //и записывает токен
                         Intent intent = new Intent(SignInScreen.this, MainActivity.class);
                         startActivity(intent);
+                        //Записывает токен в локальное хранилище
                         sharedPreferences.edit().putString("token", response.body().getToken()).apply();
 
                     } else if (response.code() == 400) {

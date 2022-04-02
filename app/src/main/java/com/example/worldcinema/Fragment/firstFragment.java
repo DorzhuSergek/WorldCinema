@@ -1,5 +1,8 @@
 package com.example.worldcinema.Fragment;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -12,6 +15,7 @@ import androidx.recyclerview.widget.SnapHelper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.worldcinema.Adapter.AdapterMovies;
 import com.example.worldcinema.R;
@@ -51,7 +55,6 @@ public class firstFragment extends Fragment {
     }
 
     private void fetchMovieCover() {
-
         AsyncTask.execute(() -> {
             service.fetchMovie().enqueue(new Callback<List<MovieResponse>>() {
                 @Override
@@ -61,6 +64,7 @@ public class firstFragment extends Fragment {
                     if (response.isSuccessful()) {
                         movieResponses=new ArrayList<>(response.body());
                         adapterMovies = new AdapterMovies(movieResponses, getContext());
+                        //с помощью адаптера мы выводим результат нужным нам образом
                         recyclerView.setAdapter(adapterMovies);
                         adapterMovies.notifyDataSetChanged();
                     } else if (response.code() == 404) {
@@ -80,4 +84,24 @@ public class firstFragment extends Fragment {
             });
         });
     }
+//    public static boolean hasConnection(final Context context)
+//    {
+//        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+//        NetworkInfo wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+//        if (wifiInfo != null && wifiInfo.isConnected())
+//        {
+//            return true;
+//        }
+//        wifiInfo = cm.getNetworkInfo(ConnectivityManager.TYPE_MOBILE);
+//        if (wifiInfo != null && wifiInfo.isConnected())
+//        {
+//            return true;
+//        }
+//        wifiInfo = cm.getActiveNetworkInfo();
+//        if (wifiInfo != null && wifiInfo.isConnected())
+//        {
+//            return true;
+//        }
+//        return false;
+//    }
 }
